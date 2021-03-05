@@ -15,6 +15,7 @@ namespace FinalProjectJob
         public List<CV> AcceptedCVs = new List<CV>();
         public List<CV> RefusedCVs = new List<CV>();
         List<CV> Favorites = new List<CV>();
+        FileHelper fh;
         public Employer()
         {
             {
@@ -227,9 +228,19 @@ namespace FinalProjectJob
 
         public void SearchByCategory(string category)
         {
-            foreach (var item in vacancies)
+            if (category != "Unassigned")
             {
-                if (item.VacancyName == category)
+                foreach (var item in vacancies)
+                {
+                    if (item.VacancyName == category)
+                    {
+                        SearchList.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var item in vacancies)
                 {
                     SearchList.Add(item);
                 }
@@ -237,12 +248,19 @@ namespace FinalProjectJob
         }
         public void SearchByCity(string city)
         {
-            foreach (var item in vacancies)
+            if (city != "Unassigned")
             {
-                if (item.City != city)
+                foreach (var item in vacancies)
                 {
-                    SearchList.Remove(item);
+                    if (item.City != city)
+                    {
+                        SearchList.Remove(item);
+                    }
                 }
+            }
+            else
+            {
+                
             }
         }
         public void SearchBySalary(int min, int max)

@@ -34,7 +34,21 @@ namespace FinalProjectJob
             }
             return "";
         }
-
+        static void SendNottificationToEmployee(Employee employee, string choice)
+        {
+            if (choice == "accept")
+            {
+                employee.Nottifications.Add("Your CV was accepted!");
+            }
+            else if (choice == "refuse")
+            {
+                employee.Nottifications.Add("Your CV was refused!");
+            }
+            else
+            {
+                Console.WriteLine("Wrong Input!");
+            }
+        }
 
         static Employee FindEmployee(List<Employee> employees, string username)
         {
@@ -262,7 +276,6 @@ namespace FinalProjectJob
             employee4.AddCV(cv4);
             employee5.AddCV(cv5);
             employee6.AddCV(cv6);
-            //fh.WriteUsersToFile("Employees.json", employees);
 
             Employer employer1 = new Employer
             {
@@ -383,7 +396,7 @@ namespace FinalProjectJob
             Vacancy vacancy5 = new Vacancy
             {
                 VacancyName = "IT",
-                City = City.Baku,
+                City = City.LosAngeles,
                 MinAge = 18,
                 MaxAge = 30,
                 StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
@@ -399,10 +412,18 @@ namespace FinalProjectJob
             employer3.AddVacancy(vacancy3);
             employer4.AddVacancy(vacancy4);
             employer5.AddVacancy(vacancy5);
-            //fh.WriteUsersToFile("Employers.json", employers);
 
             #endregion
-
+            fh.WriteEmployeesToFile("Employees.json", employees);
+            fh.WriteEmployersToFile("Employers.json", employers);
+            foreach (var item in employees)
+            {
+                fh.WriteCVsToFile("CV.json", item.CVs);
+            }
+            foreach (var item in employers)
+            {
+                fh.WriteVacanciesToFile("Vacancies.json", item.vacancies);
+            }
 
             string username;
             string password;
@@ -476,11 +497,13 @@ namespace FinalProjectJob
                                         var newCV = FindEmployee(employees, username).CreateCV(profession, school, score, skills, companies, startTime, endTime, languages, certificate, github, linkedin);
                                         FindEmployee(employees, username).AddCV(newCV);
                                         FindEmployee(employees, username).showCVs();
+                                        fh.WriteEmployeesToFile("Employees.json", employees);
                                         Console.ReadLine();
                                     }
                                     catch (Exception ex)
                                     {
                                         Console.WriteLine(ex.Message);
+                                        fh.WriteExceptionsToFile(ex);
                                         Console.ReadLine();
                                     }
                                     break;
@@ -493,10 +516,12 @@ namespace FinalProjectJob
                                         Console.WriteLine("Enter ID: ");
                                         int id = int.Parse(Console.ReadLine());
                                         FindEmployee(employees, username).DeleteCV(id);
+                                        fh.WriteEmployeesToFile("Employees.json", employees);
                                     }
                                     catch (Exception ex)
                                     {
                                         Console.WriteLine(ex.Message);
+                                        fh.WriteExceptionsToFile(ex);
                                         Console.ReadLine();
                                     }
                                     break;
@@ -505,7 +530,11 @@ namespace FinalProjectJob
                                     Console.Clear();
                                     Console.WriteLine("Are you sure ? (y/n)");
                                     string sure = Console.ReadLine();
-                                    if (sure == "y") FindEmployee(employees, username).DeleteAllCVs();
+                                    if (sure == "y")
+                                    {
+                                        FindEmployee(employees, username).DeleteAllCVs();
+                                        fh.WriteEmployeesToFile("Employees.json", employees);
+                                    }
                                     else if (sure == "n") break;
                                     else
                                     {
@@ -518,28 +547,88 @@ namespace FinalProjectJob
                                     try
                                     {
                                         bool updateCV = true;
-                                        Console.Clear();
-                                        FindEmployee(employees, username).showCVs();
-                                        Console.WriteLine("Which CV you want to update ?\nEnter an ID:");
-                                        int idForUpdateCV = int.Parse(Console.ReadLine());
-                                        Menu.UpdateMenuForCV();
-                                        Console.WriteLine("Choose an option which you want to update: ");
-                                        string choiceForUpdateCV = Console.ReadLine();
-                                        switch (choiceForUpdateCV)
+                                        while (updateCV)
                                         {
-                                            case "1":
-                                                Console.WriteLine("Enter new profession: ");
-                                                string updatedProfession = Console.ReadLine();
-                                                FindEmployee(employees, username).UpdateProfession(idForUpdateCV,updatedProfession);
-                                                break;
-                                            default:
-                                                break;
-                                        }
 
+                                            Console.Clear();
+                                            FindEmployee(employees, username).showCVs();
+                                            Console.WriteLine("Which CV you want to update ?\nEnter an ID:");
+                                            int idForUpdateCV = int.Parse(Console.ReadLine());
+                                            Console.Clear();
+                                            Menu.UpdateMenuForCV();
+                                            Console.WriteLine("Choose an option which you want to update: ");
+                                            string choiceForUpdateCV = Console.ReadLine();
+                                            switch (choiceForUpdateCV)
+                                            {
+                                                case "1":
+                                                    Console.WriteLine("Enter new profession: ");
+                                                    string updatedProfession = Console.ReadLine();
+                                                    FindEmployee(employees, username).UpdateProfession(idForUpdateCV, updatedProfession);
+                                                    break;
+                                                case "2":
+                                                    Console.WriteLine("Enter new school: ");
+                                                    string updatedSchool = Console.ReadLine();
+                                                    FindEmployee(employees, username).UpdateSchool(idForUpdateCV, updatedSchool);
+                                                    break;
+                                                case "3":
+                                                    Console.WriteLine("Enter new score: ");
+                                                    int updatedScore = int.Parse(Console.ReadLine());
+                                                    FindEmployee(employees, username).UpdateScore(idForUpdateCV, updatedScore);
+                                                    break;
+                                                case "4":
+                                                    Console.WriteLine("Enter new skill: ");
+                                                    string updatedSkills = Console.ReadLine();
+                                                    FindEmployee(employees, username).UpdateSkills(idForUpdateCV, updatedSkills);
+                                                    break;
+                                                case "5":
+                                                    Console.WriteLine("Enter new companies: ");
+                                                    string updatedCompanies = Console.ReadLine();
+                                                    FindEmployee(employees, username).UpdateCompanies(idForUpdateCV, updatedCompanies);
+                                                    break;
+                                                case "6":
+                                                    Console.WriteLine("Enter new start time(mm/dd/yyyy): ");
+                                                    DateTime updatedStartTime = DateTime.Parse(Console.ReadLine());
+                                                    FindEmployee(employees, username).UpdateStartTime(idForUpdateCV, updatedStartTime);
+                                                    break;
+                                                case "7":
+                                                    Console.WriteLine("Enter new end time(mm/dd/yyyy): ");
+                                                    DateTime updatedEndTime = DateTime.Parse(Console.ReadLine());
+                                                    FindEmployee(employees, username).UpdateEndTime(idForUpdateCV, updatedEndTime);
+                                                    break;
+                                                case "8":
+                                                    Console.WriteLine("Enter new languages: ");
+                                                    string updatedLanguage = Console.ReadLine();
+                                                    FindEmployee(employees, username).UpdateLanguage(idForUpdateCV, updatedLanguage);
+                                                    break;
+                                                case "9":
+                                                    Console.WriteLine("Enter new certificate(true/false): ");
+                                                    bool updatedCertificae = bool.Parse(Console.ReadLine());
+                                                    FindEmployee(employees, username).UpdateCertificate(idForUpdateCV, updatedCertificae);
+                                                    break;
+                                                case "10":
+                                                    Console.WriteLine("Enter new Github link: ");
+                                                    string updatedGithub = Console.ReadLine();
+                                                    FindEmployee(employees, username).UpdateGithub(idForUpdateCV, updatedGithub);
+                                                    break;
+                                                case "11":
+                                                    Console.WriteLine("Enter new LinkedIn link: ");
+                                                    string updatedLinkedIn = Console.ReadLine();
+                                                    FindEmployee(employees, username).UpdateLinkedIn(idForUpdateCV, updatedLinkedIn);
+                                                    break;
+                                                case "0":
+                                                    updateCV = false;
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                        fh.WriteEmployeesToFile("Employees.json", employees);
                                     }
                                     catch (Exception ex)
                                     {
                                         Console.WriteLine(ex.Message);
+                                        fh.WriteExceptionsToFile(ex);
+                                        Console.ReadLine();
                                     }
                                     break;
                                 case "6":
@@ -569,6 +658,7 @@ namespace FinalProjectJob
                                             catch (Exception ex)
                                             {
                                                 Console.WriteLine(ex.Message);
+                                                fh.WriteExceptionsToFile(ex);
                                                 Console.ReadLine();
                                             }
                                             break;
@@ -584,6 +674,7 @@ namespace FinalProjectJob
                                             catch (Exception ex)
                                             {
                                                 Console.WriteLine(ex.Message);
+                                                fh.WriteExceptionsToFile(ex);
                                                 Console.ReadLine();
                                             }
                                             break;
@@ -616,6 +707,65 @@ namespace FinalProjectJob
                                     Console.Clear();
                                     FindEmployee(employees, username).ShowFavoriteVacancies();
                                     Console.ReadLine();
+                                    break;
+                                case "10":
+                                    //Nottification
+                                    Console.Clear();
+                                    FindEmployee(employees, username).ShowNottifications();
+                                    Console.ReadLine();
+                                    break;
+                                case "11":
+                                    //Filtering System
+                                    try
+                                    {
+                                        Console.Clear();
+                                        Menu.PrintCategories();
+                                        Console.WriteLine("0.All");
+                                        Console.WriteLine("Choose category: ");
+                                        string categoryFilter = Console.ReadLine();
+                                        foreach (var item in employers)
+                                        {
+                                            if (categoryFilter == "1") item.SearchByCategory(Category.IT);
+                                            else if (categoryFilter == "2") item.SearchByCategory(Category.Marketing);
+                                            else if (categoryFilter == "3") item.SearchByCategory(Category.Design);
+                                            else if (categoryFilter == "4") item.SearchByCategory(Category.Business);
+                                            else if (categoryFilter == "5") item.SearchByCategory(Category.Writing);
+                                            else item.SearchByCategory(Category.Unassigned);
+                                        }
+                                        Menu.PrintCities();
+                                        Console.WriteLine("0.All");
+                                        Console.WriteLine("Choose city: ");
+                                        string cityFilter = Console.ReadLine();
+                                        foreach (var item in employers)
+                                        {
+                                            if (cityFilter == "1") item.SearchByCity(City.Baku);
+                                            else if (cityFilter == "2") item.SearchByCity(City.Ganja);
+                                            else if (cityFilter == "3") item.SearchByCity(City.Sumgait);
+                                            else if (cityFilter == "4") item.SearchByCity(City.Kazakh);
+                                            else if (cityFilter == "5") item.SearchByCity(City.NewYork);
+                                            else if (cityFilter == "6") item.SearchByCity(City.LosAngeles);
+                                            else if (cityFilter == "7") item.SearchByCity(City.Manchester);
+                                            else item.SearchByCity(City.Unassigned);
+                                        }
+                                        Console.WriteLine("Enter minimum, maximum salary (min max): ");
+                                        int minimumSalary = int.Parse(Console.ReadLine());
+                                        int maximumSalary = int.Parse(Console.ReadLine());
+                                        foreach (var item in employers)
+                                        {
+                                            item.SearchBySalary(minimumSalary, maximumSalary);
+                                        }
+                                        Console.Clear();
+                                        foreach (var item in employers)
+                                        {
+                                            item.ShowSearchList();
+                                        }
+                                        Console.ReadLine();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine(ex.Message);
+                                        fh.WriteExceptionsToFile(ex);
+                                    }
                                     break;
                                 case "0":
                                     ee = false;
@@ -688,29 +838,44 @@ namespace FinalProjectJob
                                         var newVacancy = FindEmployer(employers, username).CreateVacancy(vacancyName, city, minAge, maxAge, startTime, endTime, salary, experience, email, jobDetails, requirements);
                                         FindEmployer(employers, username).AddVacancy(newVacancy);
                                         FindEmployer(employers, username).showVacancies();
+                                        fh.WriteEmployersToFile("Employers.json", employers);
                                     }
                                     catch (Exception ex)
                                     {
                                         Console.Clear();
                                         Console.WriteLine(ex.Message);
+                                        fh.WriteExceptionsToFile(ex);
                                         Console.ReadLine();
                                     }
                                     break;
                                 case "3":
                                     //Delete vacancy
-                                    Console.Clear();
-                                    FindEmployer(employers, username).showVacancies();
-                                    Console.WriteLine("Enter ID: ");
-                                    int id = Convert.ToInt32(Console.ReadLine());
-                                    try { FindEmployer(employers, username).DeleteVacancy(id); }
-                                    catch (Exception ex) { Console.WriteLine(ex.Message); }
+                                    try
+                                    {
+                                        Console.Clear();
+                                        FindEmployer(employers, username).showVacancies();
+                                        Console.WriteLine("Enter ID: ");
+                                        int id = int.Parse(Console.ReadLine());
+                                        FindEmployer(employers, username).DeleteVacancy(id);
+                                        fh.WriteEmployersToFile("Employers.json", employers);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine(ex.Message);
+                                        fh.WriteExceptionsToFile(ex);
+                                        Console.ReadLine();
+                                    }
                                     break;
                                 case "4":
                                     //Delete all vacancies
                                     Console.Clear();
                                     Console.WriteLine("Are you sure ? (y/n)");
                                     string sure = Console.ReadLine();
-                                    if (sure == "y") FindEmployer(employers, username).DeleteAllVacancies();
+                                    if (sure == "y")
+                                    {
+                                        FindEmployer(employers, username).DeleteAllVacancies();
+                                        fh.WriteEmployersToFile("Employers.json", employers);
+                                    }
                                     else if (sure == "n") break;
                                     else
                                     {
@@ -719,12 +884,112 @@ namespace FinalProjectJob
                                     }
                                     break;
                                 case "5":
+                                    //Update vacancy
+                                    try
+                                    {
+                                        bool updateVacancy = true;
+                                        while (updateVacancy)
+                                        {
+
+                                            Console.Clear();
+                                            FindEmployer(employers, username).showVacancies();
+                                            Console.WriteLine("Which Vacancy you want to update ?\nEnter an ID:");
+                                            int idForUpdateVacancy = int.Parse(Console.ReadLine());
+                                            Console.Clear();
+                                            Menu.UpdateMenuForVacancy();
+                                            Console.WriteLine("Choose an option which you want to update: ");
+                                            string choiceForUpdateVacancy = Console.ReadLine();
+                                            switch (choiceForUpdateVacancy)
+                                            {
+                                                case "1":
+                                                    Console.WriteLine("Enter new vacancy category: ");
+                                                    Menu.PrintCategories();
+                                                    string choiceCategory = Console.ReadLine();
+                                                    if (choiceCategory == "1") FindEmployer(employers, username).UpdateVacancyName(idForUpdateVacancy, Category.IT);
+                                                    else if (choiceCategory == "2") FindEmployer(employers, username).UpdateVacancyName(idForUpdateVacancy, Category.Marketing);
+                                                    else if (choiceCategory == "3") FindEmployer(employers, username).UpdateVacancyName(idForUpdateVacancy, Category.Design);
+                                                    else if (choiceCategory == "4") FindEmployer(employers, username).UpdateVacancyName(idForUpdateVacancy, Category.Business);
+                                                    else if (choiceCategory == "5") FindEmployer(employers, username).UpdateVacancyName(idForUpdateVacancy, Category.Writing);
+                                                    else FindEmployer(employers, username).UpdateVacancyName(idForUpdateVacancy, Category.Unassigned);
+                                                    break;
+                                                case "2":
+                                                    Console.WriteLine("Enter new city: ");
+                                                    Menu.PrintCities();
+                                                    string choiceCity = Console.ReadLine();
+                                                    if (choiceCity == "1") FindEmployer(employers, username).UpdateCity(idForUpdateVacancy, City.Baku);
+                                                    else if (choiceCity == "2") FindEmployer(employers, username).UpdateCity(idForUpdateVacancy, City.Ganja);
+                                                    else if (choiceCity == "3") FindEmployer(employers, username).UpdateCity(idForUpdateVacancy, City.Sumgait);
+                                                    else if (choiceCity == "4") FindEmployer(employers, username).UpdateCity(idForUpdateVacancy, City.Kazakh);
+                                                    else if (choiceCity == "5") FindEmployer(employers, username).UpdateCity(idForUpdateVacancy, City.NewYork);
+                                                    else if (choiceCity == "6") FindEmployer(employers, username).UpdateCity(idForUpdateVacancy, City.LosAngeles);
+                                                    else if (choiceCity == "7") FindEmployer(employers, username).UpdateCity(idForUpdateVacancy, City.Manchester);
+                                                    else FindEmployer(employers, username).UpdateCity(idForUpdateVacancy, City.Unassigned);
+                                                    break;
+                                                case "3":
+                                                    Console.WriteLine("Enter new minimum age: ");
+                                                    int updatedMinAge = int.Parse(Console.ReadLine());
+                                                    FindEmployer(employers, username).UpdateMinAge(idForUpdateVacancy, updatedMinAge);
+                                                    break;
+                                                case "4":
+                                                    Console.WriteLine("Enter new maximum age: ");
+                                                    int updatedMaxAge = int.Parse(Console.ReadLine());
+                                                    FindEmployer(employers, username).UpdateMaxAge(idForUpdateVacancy, updatedMaxAge);
+                                                    break;
+                                                case "5":
+                                                    Console.WriteLine("Enter new start time(mm/dd/yyyy): ");
+                                                    DateTime updatedStartTime = DateTime.Parse(Console.ReadLine());
+                                                    FindEmployer(employers, username).UpdateStartTime(idForUpdateVacancy, updatedStartTime);
+                                                    break;
+                                                case "6":
+                                                    Console.WriteLine("Enter new end time(mm/dd/yyyy): ");
+                                                    DateTime updatedEndTime = DateTime.Parse(Console.ReadLine());
+                                                    FindEmployer(employers, username).UpdateEndTime(idForUpdateVacancy, updatedEndTime);
+                                                    break;
+                                                case "7":
+                                                    Console.WriteLine("Enter new salary: ");
+                                                    int updatedSalary = int.Parse(Console.ReadLine());
+                                                    FindEmployer(employers, username).UpdateSalary(idForUpdateVacancy, updatedSalary);
+                                                    break;
+                                                case "8":
+                                                    Console.WriteLine("Enter new experience(year): ");
+                                                    int updatedExperience = int.Parse(Console.ReadLine());
+                                                    FindEmployer(employers, username).UpdateExperience(idForUpdateVacancy, updatedExperience);
+                                                    break;
+                                                case "9":
+                                                    Console.WriteLine("Enter new email: ");
+                                                    string updatedEmail = Console.ReadLine();
+                                                    FindEmployer(employers, username).UpdateEmail(idForUpdateVacancy, updatedEmail);
+                                                    break;
+                                                case "10":
+                                                    Console.WriteLine("Enter new job details: ");
+                                                    string updatedJobDetails = Console.ReadLine();
+                                                    FindEmployer(employers, username).UpdateJobDetails(idForUpdateVacancy, updatedJobDetails);
+                                                    break;
+                                                case "11":
+                                                    Console.WriteLine("Enter new requirements: ");
+                                                    string updatedRequirements = Console.ReadLine();
+                                                    FindEmployer(employers, username).UpdateRequirements(idForUpdateVacancy, updatedRequirements);
+                                                    break;
+                                                case "0":
+                                                    updateVacancy = false;
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                        fh.WriteEmployersToFile("Employers.json", employers);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine(ex.Message);
+                                        fh.WriteExceptionsToFile(ex);
+                                        Console.ReadLine();
+                                    }
+                                    break;
+                                case "6":
                                     //Show all employees
                                     Console.Clear();
-                                    foreach (var item in employees)
-                                    {
-                                        Console.WriteLine(item);
-                                    }
+                                    fh.ReadEmployeesFromFile("Employees.json");
                                     try
                                     {
                                         Console.WriteLine("Choose an ID to see CV: ");
@@ -749,16 +1014,17 @@ namespace FinalProjectJob
                                     catch (Exception ex)
                                     {
                                         Console.WriteLine(ex.Message);
+                                        fh.WriteExceptionsToFile(ex);
                                         Console.ReadLine();
                                     }
                                     break;
-                                case "6":
+                                case "7":
                                     //Show Favorites
                                     Console.Clear();
                                     FindEmployer(employers, username).ShowFavoriteCVs();
                                     Console.ReadLine();
                                     break;
-                                case "7":
+                                case "8":
                                     //Incoming CVs
                                     try
                                     {
@@ -771,12 +1037,16 @@ namespace FinalProjectJob
                                         switch (choiceAR)
                                         {
                                             case "1":
-                                                FindEmployer(employers, username).Accept(FindEmployeeByID(employees, IdOfCV), IdOfCV);
+                                                var emp = FindEmployeeByID(employees, IdOfCV);
+                                                FindEmployer(employers, username).Accept(emp, IdOfCV);
+                                                SendNottificationToEmployee(emp, "accept");
                                                 Console.WriteLine("CV Accepted successfully!");
                                                 Console.ReadLine();
                                                 break;
                                             case "2":
-                                                FindEmployer(employers, username).Refuse(FindEmployeeByID(employees, IdOfCV), IdOfCV);
+                                                emp = FindEmployeeByID(employees, IdOfCV);
+                                                FindEmployer(employers, username).Refuse(emp, IdOfCV);
+                                                SendNottificationToEmployee(emp, "refuse");
                                                 Console.WriteLine("CV Refused!");
                                                 Console.ReadLine();
                                                 break;
@@ -786,13 +1056,16 @@ namespace FinalProjectJob
                                                 Console.WriteLine("Wrong Input");
                                                 break;
                                         }
+                                        fh.WriteEmployersToFile("Employers.json", employers);
                                     }
                                     catch (Exception ex)
                                     {
                                         Console.WriteLine(ex.Message);
+                                        fh.WriteExceptionsToFile(ex);
+                                        Console.ReadLine();
                                     }
                                     break;
-                                case "8":
+                                case "9":
                                     //Accepted CVs
                                     Console.Clear();
                                     FindEmployer(employers, username).ShowAcceptedCVs();
@@ -829,126 +1102,6 @@ namespace FinalProjectJob
 
 
 
-    #region Test
-
-    //Console.WriteLine(employee);
-    //employee.showCVs();
-    //employee.CreateCV("Computer Science", "123", 123, "Helpdesk, Python", "STMHSTM", new DateTime(2011, 01, 01), DateTime.Now, "Azerbaijani, English", true, "git", "link");
-    //employee.showCVs();
-
-    //try
-    //{
-    //    employee.DeleteCV(3);
-    //}
-    //catch (Exception ex)
-    //{
-    //    Console.WriteLine(ex.Message);
-    //}
-    //employee.showCVs();
-
-    //employee.UpdateProfession(2, "Cyber Sec");
-    //employee.UpdateSchool(2, "123");
-    //employee.UpdateScore(2, 700);
-    //employee.UpdateSkills(2, "C++,C#,C");
-    //employee.UpdateProfession(3, "Cyber Sec");
-    //employee.UpdateProfession(4, "Cyber Sec");
-    //employee.showCVs();
-
-
-
-    //Console.WriteLine(employer);
-    //employer.showVacancies();
-    //employer.AddVacancy(".NET Developer", "Baku", 18, 30, new DateTime(2011, 01, 01, 09, 00, 00), new DateTime(2011, 01, 01, 18, 00, 00), 2000, 3, "zaur@gmail.com", ".Net Dev axtarilir", "C# bilikleri");
-    //employer.DeleteAllVacancies();
-    //employer.DeleteVacancy(1);
-    //employer.UpdateVacancyName(1, "SMTH");
-    //employer.UpdateCity(1, "NY");
-    //employer.UpdateMinAge(1, 25);
-    //employer.UpdateMaxAge(1, 50);
-
-    //employer.showVacancies();
-
-    //CV cv1 = new CV
-    //{
-    //    Profession = "Cyber Security",
-    //    SchoolNO = "THL",
-    //    Score = 522,
-    //    Skills = "C++, C#",
-    //    Companies = "Step IT, SMTH",
-    //    StartTime = DateTime.Now,
-    //    EndTime = DateTime.Now,
-    //    Languages = "Azerbaijani,English,Turkish",
-    //    Certificate = true,
-    //    GitHub = "github.com/zaurcfr",
-    //    LinkedIn = "linkedin.com/zaurcfr"
-    //};
-    //employee.AddCv(cv1);
-    //employee.showCVs();
-    //employer.Accept(cv1);
-
-
-    //employee.Bid(2);
-    //employer.Accept(employee, 2);
-    //employer.ShowAcceptedCVs();
-
-
-    //Vacancy vacancy = new Vacancy();
-    //employer.SearchByCategory(Category.IT);
-    //employer.SearchByCity("Baku");
-    //employer.SearchBySalary(500, 1500);
-    //employer.SearchByExperience(2);
-    //employer.ShowSearchList();
-
-
-    //employee.Bid(1);
-    //employer.Accept(employee,1);
-    //employer.ShowAcceptedCVs();
-
-    //try
-    //{
-    //    employer.DeleteVacancy(4);
-    //}
-    //catch (Exception ex)
-    //{
-    //    Console.WriteLine(ex.Message);
-    //    using (var fs = new FileStream("error_log.txt",FileMode.OpenOrCreate))
-    //    {
-    //        using (var sw=new StreamWriter(fs))
-    //        {
-    //            sw.WriteLine($"Error Message: {ex.Message}");
-    //        }
-    //    }
-    //}
-
-    //if (SignIN(employee, "zaur", "zaur12"))
-    //{
-    //    Console.WriteLine("Welcome");
-    //}
-
-    //employer.AddToFavoritesCV(employee, 1);
-    //employer.ShowFavoriteCVs();
-
-    //employee.AddToFavoritesVacancy(employer, 1);
-    //employee.ShowFavoriteVacancies();
-
-    //employer.IncreaseView(1);
-    //employer.IncreaseView(3);
-    //employer.IncreaseView(3);
-    //employer.IncreaseView(3);
-    //employer.OrderByView();
-
-
-    //employee.Bid(1);
-    //employer.Accept(employee, 1);
-    //employer.Refuse(employee, 1);
-    //Statistics statistics = new Statistics();
-    //statistics.CalculateTotalVacancies(employer);
-    //statistics.CalculateTotalAcceptedCVs(employer);
-    //statistics.CalculateTotalRefusedCVs(employer);
-    //statistics.CalculateTotalCVs(employee);
-    //statistics.CalculateTotalBids(employee);
-
-    #endregion
 }
 
 

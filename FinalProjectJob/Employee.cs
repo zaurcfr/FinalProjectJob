@@ -12,6 +12,8 @@ namespace FinalProjectJob
         public List<Vacancy> BidList = new List<Vacancy>();
         public Employer employer { get; set; }
         List<Vacancy> FavoriteVacancies = new List<Vacancy>();
+        FileHelper fh = new FileHelper();
+        public List<string> Nottifications = new List<string>();
         public Employee()
         {
             {
@@ -67,6 +69,7 @@ namespace FinalProjectJob
                     if (idVac == itemVac.ID)
                     {
                         BidList.Add(itemVac);
+                        fh.WriteVacanciesToBidList("BidList.json",itemVac);
                     }
                 };
                 employer.IncomingCVs.Add(item);
@@ -82,6 +85,14 @@ namespace FinalProjectJob
         public void ShowBidList()
         {
             foreach (var item in BidList)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        public void ShowNottifications()
+        {
+            foreach (var item in Nottifications)
             {
                 Console.WriteLine(item);
             }

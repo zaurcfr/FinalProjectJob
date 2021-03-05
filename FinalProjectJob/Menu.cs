@@ -22,10 +22,11 @@ namespace FinalProjectJob
             Console.WriteLine("2.Create new vacancy");
             Console.WriteLine("3.Delete vacancy");
             Console.WriteLine("4.Delete all vacancies");
-            Console.WriteLine("5.Show all employees");
-            Console.WriteLine("6.Show Favorites");
-            Console.WriteLine("7.Incoming CVs");
-            Console.WriteLine("8.Accepted CVs");
+            Console.WriteLine("5.Update vacancy");
+            Console.WriteLine("6.Show all employees");
+            Console.WriteLine("7.Show Favorites");
+            Console.WriteLine("8.Incoming CVs");
+            Console.WriteLine("9.Accepted CVs");
             Console.WriteLine("0.Exit");
         }
         public static void PrintMenuForEmployees()
@@ -40,6 +41,8 @@ namespace FinalProjectJob
             Console.WriteLine("7.Show Bid list");
             Console.WriteLine("8.Remove Bid");
             Console.WriteLine("9.Show Favorites");
+            Console.WriteLine("10.Nottifications");
+            Console.WriteLine("11.Search");
             Console.WriteLine("0.Exit");
         }
         public static void PrintVacancyAndCVMenu()
