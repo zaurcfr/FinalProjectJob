@@ -66,15 +66,15 @@ namespace FinalProjectJob
                 }
             }
         }
-        public void WriteVacanciesToFile(string fileName, List<Vacancy> vacancies)
+        public void WriteVacanciesToFile(string fileName, Vacancy vacancy)
         {
             var serializer = new JsonSerializer();
-            using (var sw = new StreamWriter(fileName))
+            using (var sw = new StreamWriter(fileName, true))
             {
                 using (var jw = new JsonTextWriter(sw))
                 {
                     jw.Formatting = Newtonsoft.Json.Formatting.Indented;
-                    serializer.Serialize(jw, vacancies);
+                    serializer.Serialize(jw, vacancy);
                 }
             }
         }
@@ -94,7 +94,7 @@ namespace FinalProjectJob
                 }
             }
         }
-        public void WriteCVsToFile(string fileName, List<CV> CVs)
+        public void WriteCVsToFile(string fileName, CV cv)
         {
             var serializer = new JsonSerializer();
             using (var sw = new StreamWriter(fileName))
@@ -102,7 +102,7 @@ namespace FinalProjectJob
                 using (var jw = new JsonTextWriter(sw))
                 {
                     jw.Formatting = Newtonsoft.Json.Formatting.Indented;
-                    serializer.Serialize(jw, CVs);
+                    serializer.Serialize(jw, cv);
                 }
             }
         }
@@ -134,10 +134,10 @@ namespace FinalProjectJob
                 }
             }
         }
-        public void WriteVacanciesToBidList(string fileName,Vacancy vacancy)
+        public void WriteVacanciesToBidList(string fileName, Vacancy vacancy)
         {
             var serializer = new JsonSerializer();
-            using (var sw = new StreamWriter(fileName,true))
+            using (var sw = new StreamWriter(fileName, true))
             {
                 using (var jw = new JsonTextWriter(sw))
                 {

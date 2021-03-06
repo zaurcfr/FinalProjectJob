@@ -194,6 +194,7 @@ namespace FinalProjectJob
         {
             var item = IncomingCVs.Single(c => c.ID == id);
             AcceptedCVs.Add(item);
+            IncomingCVs.Remove(item);
         }
         public void Refuse(Employee employee, int id)
         {

@@ -38,7 +38,7 @@ namespace FinalProjectJob
         {
             if (choice == "accept")
             {
-                employee.Nottifications.Add("Your CV was accepted!");
+                employee.Nottifications.Add($"Your CV was accepted!");
             }
             else if (choice == "refuse")
             {
@@ -416,14 +416,8 @@ namespace FinalProjectJob
             #endregion
             fh.WriteEmployeesToFile("Employees.json", employees);
             fh.WriteEmployersToFile("Employers.json", employers);
-            foreach (var item in employees)
-            {
-                fh.WriteCVsToFile("CV.json", item.CVs);
-            }
-            foreach (var item in employers)
-            {
-                fh.WriteVacanciesToFile("Vacancies.json", item.vacancies);
-            }
+            //foreach (var item in employees) fh.WriteCVsToFile("CV.json", item.CVs);
+            //foreach (var item in employers) fh.WriteVacanciesToFile("Vacancies.json", item.vacancies);
 
             string username;
             string password;
@@ -437,9 +431,6 @@ namespace FinalProjectJob
             while (b)
             {
                 Console.Clear();
-                Menu.PrintMenu();
-                Console.WriteLine("Choose your option: ");
-                string choiceLogIn = Console.ReadLine();
                 bool l = true;
                 while (l)
                 {
@@ -497,6 +488,7 @@ namespace FinalProjectJob
                                         var newCV = FindEmployee(employees, username).CreateCV(profession, school, score, skills, companies, startTime, endTime, languages, certificate, github, linkedin);
                                         FindEmployee(employees, username).AddCV(newCV);
                                         FindEmployee(employees, username).showCVs();
+                                        fh.WriteCVsToFile("CV.json", newCV);
                                         fh.WriteEmployeesToFile("Employees.json", employees);
                                         Console.ReadLine();
                                     }
@@ -838,6 +830,7 @@ namespace FinalProjectJob
                                         var newVacancy = FindEmployer(employers, username).CreateVacancy(vacancyName, city, minAge, maxAge, startTime, endTime, salary, experience, email, jobDetails, requirements);
                                         FindEmployer(employers, username).AddVacancy(newVacancy);
                                         FindEmployer(employers, username).showVacancies();
+                                        fh.WriteVacanciesToFile("Vacancies.json", newVacancy);
                                         fh.WriteEmployersToFile("Employers.json", employers);
                                     }
                                     catch (Exception ex)
