@@ -109,311 +109,312 @@ namespace FinalProjectJob
         static void Main(string[] args)
         {
             FileHelper fh = new FileHelper();
-            List<Employee> employees = new List<Employee>();
-            List<Employer> employers = new List<Employer>();
+            List<Employee> employees = fh.ReadEmployeesFromFile("Employees.json");
+            List<Employer> employers = fh.ReadEmployersFromFile("Employers.json");
 
             #region EmployeeAndEmployer
 
-            Employee employee1 = new Employee
-            {
-                Name = "Zaur",
-                Surname = "Jafarov",
-                Age = 19,
-                PhoneNumber = "+994553467069",
-                City = City.Baku,
-                Email = "zaurcfr@gmail.com",
-                Username = "zaurcfr",
-                Password = "zaur123"
-            };
-            Employee employee2 = new Employee
-            {
-                Name = "Sweet",
-                Surname = "Johnson",
-                Age = 28,
-                PhoneNumber = "+994558763267",
-                City = City.LosAngeles,
-                Email = "sweetj@gmail.com",
-                Username = "sweet",
-                Password = "johnsonboy1"
-            };
-            Employee employee3 = new Employee
-            {
-                Name = "Ken",
-                Surname = "Rosenberg",
-                Age = 30,
-                PhoneNumber = "+994706754857",
-                City = City.Baku,
-                Email = "rosenberg@gmail.com",
-                Username = "krose",
-                Password = "kenrosie91"
-            };
-            Employee employee4 = new Employee
-            {
-                Name = "Sonny",
-                Surname = "Forelli",
-                Age = 32,
-                PhoneNumber = "+994774567824",
-                City = City.Baku,
-                Email = "sonny_forelli@gmail.com",
-                Username = "sonnyf",
-                Password = "forelli1m"
-            };
-            Employee employee5 = new Employee
-            {
-                Name = "Salvatore",
-                Surname = "Leone",
-                Age = 43,
-                PhoneNumber = "+994554987395",
-                City = City.NewYork,
-                Email = "bossleone@gmail.com",
-                Username = "salvatoretheboss",
-                Password = "salvatore123"
-            };
-            Employee employee6 = new Employee
-            {
-                Name = "Employee",
-                Surname = "Employee",
-                Age = 20,
-                PhoneNumber = "+994551234567",
-                City = City.Baku,
-                Email = "employee@gmail.com",
-                Username = "employee",
-                Password = "employee"
-            };
-            employees.Add(employee1);
-            employees.Add(employee2);
-            employees.Add(employee3);
-            employees.Add(employee4);
-            employees.Add(employee5);
-            employees.Add(employee6);
-            CV cv1 = new CV
-            {
-                Profession = "Developer",
-                SchoolNO = "THL",
-                Score = 522,
-                Skills = "C++, C#",
-                Companies = "Step IT, SMTH",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now,
-                Languages = "Azerbaijani,English,Turkish",
-                Certificate = true,
-                GitHub = "github.com/zaurcfr",
-                LinkedIn = "linkedin.com/zaurcfr"
-            };
-            CV cv2 = new CV
-            {
-                Profession = "Marketing",
-                SchoolNO = "LA School",
-                Score = 674,
-                Skills = "smth",
-                Companies = "Marketing Comp.",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now,
-                Languages = "English,Russian",
-                Certificate = true,
-                GitHub = "github.com/sweetj",
-                LinkedIn = "linkedin.com/sweetj"
-            };
-            CV cv3 = new CV
-            {
-                Profession = "Marketing",
-                SchoolNO = "Law School",
-                Score = 690,
-                Skills = "Lawyer skills",
-                Companies = "Lawyer Comp.",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now,
-                Languages = "Azerbaijani,Turkish,English,Russian",
-                Certificate = true,
-                GitHub = "github.com/krosie",
-                LinkedIn = "linkedin.com/krosie"
-            };
-            CV cv4 = new CV
-            {
-                Profession = "Designer",
-                SchoolNO = "Design School",
-                Score = 456,
-                Skills = "Photoshop",
-                Companies = "Design Comp.",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now,
-                Languages = "Azerbaijani,English",
-                Certificate = true,
-                GitHub = "github.com/sonnyf",
-                LinkedIn = "linkedin.com/sonnyf"
-            };
-            CV cv5 = new CV
-            {
-                Profession = "Writing",
-                SchoolNO = "NY School",
-                Score = 543,
-                Skills = "Some Writing skills",
-                Companies = "Writer Comp.",
-                StartTime = new DateTime(2015, 10, 5),
-                EndTime = new DateTime(2019, 5, 3),
-                Languages = "Azerbaijani,English,Russian,Mexicano",
-                Certificate = true,
-                GitHub = "github.com/salvatore",
-                LinkedIn = "linkedin.com/salvatore"
-            };
-            CV cv6 = new CV
-            {
-                Profession = "Informasion Technologies",
-                SchoolNO = "IT School",
-                Score = 538,
-                Skills = "Network, Windows Server",
-                Companies = "IT Comp.",
-                StartTime = new DateTime(2018, 07, 13),
-                EndTime = new DateTime(2020, 12, 12),
-                Languages = "Azerbaijani,English,Russian",
-                Certificate = true,
-                GitHub = "github.com/sweetj",
-                LinkedIn = "linkedin.com/sweetj"
-            };
-            employee1.AddCV(cv1);
-            employee2.AddCV(cv2);
-            employee3.AddCV(cv3);
-            employee4.AddCV(cv4);
-            employee5.AddCV(cv5);
-            employee6.AddCV(cv6);
+            //Employee employee1 = new Employee
+            //{
+            //    Name = "Zaur",
+            //    Surname = "Jafarov",
+            //    Age = 19,
+            //    PhoneNumber = "+994553467069",
+            //    City = City.Baku,
+            //    Email = "zaurcfr@gmail.com",
+            //    Username = "zaurcfr",
+            //    Password = "zaur123"
+            //};
+            //Employee employee2 = new Employee
+            //{
+            //    Name = "Sweet",
+            //    Surname = "Johnson",
+            //    Age = 28,
+            //    PhoneNumber = "+994558763267",
+            //    City = City.LosAngeles,
+            //    Email = "sweetj@gmail.com",
+            //    Username = "sweet",
+            //    Password = "johnsonboy1"
+            //};
+            //Employee employee3 = new Employee
+            //{
+            //    Name = "Ken",
+            //    Surname = "Rosenberg",
+            //    Age = 30,
+            //    PhoneNumber = "+994706754857",
+            //    City = City.Baku,
+            //    Email = "rosenberg@gmail.com",
+            //    Username = "krose",
+            //    Password = "kenrosie91"
+            //};
+            //Employee employee4 = new Employee
+            //{
+            //    Name = "Sonny",
+            //    Surname = "Forelli",
+            //    Age = 32,
+            //    PhoneNumber = "+994774567824",
+            //    City = City.Baku,
+            //    Email = "sonny_forelli@gmail.com",
+            //    Username = "sonnyf",
+            //    Password = "forelli1m"
+            //};
+            //Employee employee5 = new Employee
+            //{
+            //    Name = "Salvatore",
+            //    Surname = "Leone",
+            //    Age = 43,
+            //    PhoneNumber = "+994554987395",
+            //    City = City.NewYork,
+            //    Email = "bossleone@gmail.com",
+            //    Username = "salvatoretheboss",
+            //    Password = "salvatore123"
+            //};
+            //Employee employee6 = new Employee
+            //{
+            //    Name = "Employee",
+            //    Surname = "Employee",
+            //    Age = 20,
+            //    PhoneNumber = "+994551234567",
+            //    City = City.Baku,
+            //    Email = "employee@gmail.com",
+            //    Username = "employee",
+            //    Password = "employee"
+            //};
+            //employees.Add(employee1);
+            //employees.Add(employee2);
+            //employees.Add(employee3);
+            //employees.Add(employee4);
+            //employees.Add(employee5);
+            //employees.Add(employee6);
+            //CV cv1 = new CV
+            //{
+            //    Profession = "Developer",
+            //    SchoolNO = "THL",
+            //    Score = 522,
+            //    Skills = "C++, C#",
+            //    Companies = "Step IT, SMTH",
+            //    StartTime = DateTime.Now,
+            //    EndTime = DateTime.Now,
+            //    Languages = "Azerbaijani,English,Turkish",
+            //    Certificate = true,
+            //    GitHub = "github.com/zaurcfr",
+            //    LinkedIn = "linkedin.com/zaurcfr"
+            //};
+            //CV cv2 = new CV
+            //{
+            //    Profession = "Marketing",
+            //    SchoolNO = "LA School",
+            //    Score = 674,
+            //    Skills = "smth",
+            //    Companies = "Marketing Comp.",
+            //    StartTime = DateTime.Now,
+            //    EndTime = DateTime.Now,
+            //    Languages = "English,Russian",
+            //    Certificate = true,
+            //    GitHub = "github.com/sweetj",
+            //    LinkedIn = "linkedin.com/sweetj"
+            //};
+            //CV cv3 = new CV
+            //{
+            //    Profession = "Marketing",
+            //    SchoolNO = "Law School",
+            //    Score = 690,
+            //    Skills = "Lawyer skills",
+            //    Companies = "Lawyer Comp.",
+            //    StartTime = DateTime.Now,
+            //    EndTime = DateTime.Now,
+            //    Languages = "Azerbaijani,Turkish,English,Russian",
+            //    Certificate = true,
+            //    GitHub = "github.com/krosie",
+            //    LinkedIn = "linkedin.com/krosie"
+            //};
+            //CV cv4 = new CV
+            //{
+            //    Profession = "Designer",
+            //    SchoolNO = "Design School",
+            //    Score = 456,
+            //    Skills = "Photoshop",
+            //    Companies = "Design Comp.",
+            //    StartTime = DateTime.Now,
+            //    EndTime = DateTime.Now,
+            //    Languages = "Azerbaijani,English",
+            //    Certificate = true,
+            //    GitHub = "github.com/sonnyf",
+            //    LinkedIn = "linkedin.com/sonnyf"
+            //};
+            //CV cv5 = new CV
+            //{
+            //    Profession = "Writing",
+            //    SchoolNO = "NY School",
+            //    Score = 543,
+            //    Skills = "Some Writing skills",
+            //    Companies = "Writer Comp.",
+            //    StartTime = new DateTime(2015, 10, 5),
+            //    EndTime = new DateTime(2019, 5, 3),
+            //    Languages = "Azerbaijani,English,Russian,Mexicano",
+            //    Certificate = true,
+            //    GitHub = "github.com/salvatore",
+            //    LinkedIn = "linkedin.com/salvatore"
+            //};
+            //CV cv6 = new CV
+            //{
+            //    Profession = "Informasion Technologies",
+            //    SchoolNO = "IT School",
+            //    Score = 538,
+            //    Skills = "Network, Windows Server",
+            //    Companies = "IT Comp.",
+            //    StartTime = new DateTime(2018, 07, 13),
+            //    EndTime = new DateTime(2020, 12, 12),
+            //    Languages = "Azerbaijani,English,Russian",
+            //    Certificate = true,
+            //    GitHub = "github.com/sweetj",
+            //    LinkedIn = "linkedin.com/sweetj"
+            //};
+            //employee1.AddCV(cv1);
+            //employee2.AddCV(cv2);
+            //employee3.AddCV(cv3);
+            //employee4.AddCV(cv4);
+            //employee5.AddCV(cv5);
+            //employee6.AddCV(cv6);
 
-            Employer employer1 = new Employer
-            {
-                Name = "Zaur",
-                Surname = "Jafarov",
-                Age = 19,
-                PhoneNumber = "+994553467069",
-                City = City.Baku,
-                Email = "zaurcfr13@gmail.com",
-                Username = "zaurcfr13",
-                Password = "zaur12345"
-            };
-            Employer employer2 = new Employer
-            {
-                Name = "Tommy",
-                Surname = "Vercetti",
-                Age = 31,
-                PhoneNumber = "+994554117788",
-                City = City.Baku,
-                Email = "tommyvercetti@gmail.com",
-                Username = "vercetti",
-                Password = "harwoodbutcher"
-            };
-            Employer employer3 = new Employer
-            {
-                Name = "Carl",
-                Surname = "Johnson",
-                Age = 28,
-                PhoneNumber = "+994559857649",
-                City = City.LosAngeles,
-                Email = "carljohnson@gmail.com",
-                Username = "cj",
-                Password = "johnsonboy2"
-            };
-            Employer employer4 = new Employer
-            {
-                Name = "Claude",
-                Surname = "Speed",
-                Age = 25,
-                PhoneNumber = "+994558741383",
-                City = City.NewYork,
-                Email = "speedclaude@gmail.com",
-                Username = "claude",
-                Password = "catalina"
-            };
-            Employer employer5 = new Employer
-            {
-                Name = "Employer",
-                Surname = "Employer",
-                Age = 20,
-                PhoneNumber = "+994558747932",
-                City = City.Baku,
-                Email = "employer@gmail.com",
-                Username = "employer",
-                Password = "employer"
-            };
-            employers.Add(employer1);
-            employers.Add(employer2);
-            employers.Add(employer3);
-            employers.Add(employer4);
-            employers.Add(employer5);
-            Vacancy vacancy1 = new Vacancy
-            {
-                VacancyName = "IT",
-                City = City.Baku,
-                MinAge = 18,
-                MaxAge = 30,
-                StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
-                EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
-                Salary = 1000,
-                Experience = 3,
-                Email = "zaurcfr13@gmail.com",
-                JobDetails = "Web developer teleb olunur. Cay ve kofe pulsuz",
-                Requirements = "HTML, CSS, JS bilikleri"
-            };
-            Vacancy vacancy2 = new Vacancy
-            {
-                VacancyName = "Marketing",
-                City = City.Baku,
-                MinAge = 18,
-                MaxAge = 30,
-                StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
-                EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
-                Salary = 800,
-                Experience = 3,
-                Email = "tommyvercetti@gmail.com",
-                JobDetails = "[Details about Marketing]",
-                Requirements = "[Requirements about Marketing]"
-            }; ;
-            Vacancy vacancy3 = new Vacancy
-            {
-                VacancyName = "Design",
-                City = City.LosAngeles,
-                MinAge = 18,
-                MaxAge = 30,
-                StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
-                EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
-                Salary = 800,
-                Experience = 3,
-                Email = "carljohnson@gmail.com",
-                JobDetails = "[Details about Design]",
-                Requirements = "[Requirements about Design]"
-            }; ;
-            Vacancy vacancy4 = new Vacancy
-            {
-                VacancyName = "Writing",
-                City = City.NewYork,
-                MinAge = 18,
-                MaxAge = 30,
-                StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
-                EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
-                Salary = 800,
-                Experience = 3,
-                Email = "speedclaude@gmail.com",
-                JobDetails = "[Details about Writing]",
-                Requirements = "[Requirements about Writing]"
-            }; ;
-            Vacancy vacancy5 = new Vacancy
-            {
-                VacancyName = "IT",
-                City = City.LosAngeles,
-                MinAge = 18,
-                MaxAge = 30,
-                StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
-                EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
-                Salary = 800,
-                Experience = 3,
-                Email = "employer@gmail.com",
-                JobDetails = "[Details about IT]",
-                Requirements = "[Requirements about IT]"
-            };
-            employer1.AddVacancy(vacancy1);
-            employer2.AddVacancy(vacancy2);
-            employer3.AddVacancy(vacancy3);
-            employer4.AddVacancy(vacancy4);
-            employer5.AddVacancy(vacancy5);
+            //Employer employer1 = new Employer
+            //{
+            //    Name = "Zaur",
+            //    Surname = "Jafarov",
+            //    Age = 19,
+            //    PhoneNumber = "+994553467069",
+            //    City = City.Baku,
+            //    Email = "zaurcfr13@gmail.com",
+            //    Username = "zaurcfr13",
+            //    Password = "zaur12345"
+            //};
+            //Employer employer2 = new Employer
+            //{
+            //    Name = "Tommy",
+            //    Surname = "Vercetti",
+            //    Age = 31,
+            //    PhoneNumber = "+994554117788",
+            //    City = City.Baku,
+            //    Email = "tommyvercetti@gmail.com",
+            //    Username = "vercetti",
+            //    Password = "harwoodbutcher"
+            //};
+            //Employer employer3 = new Employer
+            //{
+            //    Name = "Carl",
+            //    Surname = "Johnson",
+            //    Age = 28,
+            //    PhoneNumber = "+994559857649",
+            //    City = City.LosAngeles,
+            //    Email = "carljohnson@gmail.com",
+            //    Username = "cj",
+            //    Password = "johnsonboy2"
+            //};
+            //Employer employer4 = new Employer
+            //{
+            //    Name = "Claude",
+            //    Surname = "Speed",
+            //    Age = 25,
+            //    PhoneNumber = "+994558741383",
+            //    City = City.NewYork,
+            //    Email = "speedclaude@gmail.com",
+            //    Username = "claude",
+            //    Password = "catalina"
+            //};
+            //Employer employer5 = new Employer
+            //{
+            //    Name = "Employer",
+            //    Surname = "Employer",
+            //    Age = 20,
+            //    PhoneNumber = "+994558747932",
+            //    City = City.Baku,
+            //    Email = "employer@gmail.com",
+            //    Username = "employer",
+            //    Password = "employer"
+            //};
+            //employers.Add(employer1);
+            //employers.Add(employer2);
+            //employers.Add(employer3);
+            //employers.Add(employer4);
+            //employers.Add(employer5);
+            //Vacancy vacancy1 = new Vacancy
+            //{
+            //    VacancyName = "IT",
+            //    City = City.Baku,
+            //    MinAge = 18,
+            //    MaxAge = 30,
+            //    StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
+            //    EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
+            //    Salary = 1000,
+            //    Experience = 3,
+            //    Email = "zaurcfr13@gmail.com",
+            //    JobDetails = "Web developer teleb olunur. Cay ve kofe pulsuz",
+            //    Requirements = "HTML, CSS, JS bilikleri"
+            //};
+            //Vacancy vacancy2 = new Vacancy
+            //{
+            //    VacancyName = "Marketing",
+            //    City = City.Baku,
+            //    MinAge = 18,
+            //    MaxAge = 30,
+            //    StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
+            //    EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
+            //    Salary = 800,
+            //    Experience = 3,
+            //    Email = "tommyvercetti@gmail.com",
+            //    JobDetails = "[Details about Marketing]",
+            //    Requirements = "[Requirements about Marketing]"
+            //}; ;
+            //Vacancy vacancy3 = new Vacancy
+            //{
+            //    VacancyName = "Design",
+            //    City = City.LosAngeles,
+            //    MinAge = 18,
+            //    MaxAge = 30,
+            //    StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
+            //    EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
+            //    Salary = 800,
+            //    Experience = 3,
+            //    Email = "carljohnson@gmail.com",
+            //    JobDetails = "[Details about Design]",
+            //    Requirements = "[Requirements about Design]"
+            //}; ;
+            //Vacancy vacancy4 = new Vacancy
+            //{
+            //    VacancyName = "Writing",
+            //    City = City.NewYork,
+            //    MinAge = 18,
+            //    MaxAge = 30,
+            //    StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
+            //    EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
+            //    Salary = 800,
+            //    Experience = 3,
+            //    Email = "speedclaude@gmail.com",
+            //    JobDetails = "[Details about Writing]",
+            //    Requirements = "[Requirements about Writing]"
+            //}; ;
+            //Vacancy vacancy5 = new Vacancy
+            //{
+            //    VacancyName = "IT",
+            //    City = City.LosAngeles,
+            //    MinAge = 18,
+            //    MaxAge = 30,
+            //    StartTime = new DateTime(2021, 03, 06, 09, 00, 00),
+            //    EndTime = new DateTime(2021, 03, 06, 18, 00, 00),
+            //    Salary = 800,
+            //    Experience = 3,
+            //    Email = "employer@gmail.com",
+            //    JobDetails = "[Details about IT]",
+            //    Requirements = "[Requirements about IT]"
+            //};
+            //employer1.AddVacancy(vacancy1);
+            //employer2.AddVacancy(vacancy2);
+            //employer3.AddVacancy(vacancy3);
+            //employer4.AddVacancy(vacancy4);
+            //employer5.AddVacancy(vacancy5);
 
             #endregion
+
             fh.WriteEmployeesToFile("Employees.json", employees);
             fh.WriteEmployersToFile("Employers.json", employers);
             //foreach (var item in employees) fh.WriteCVsToFile("CV.json", item.CVs);
@@ -981,7 +982,10 @@ namespace FinalProjectJob
                                 case "6":
                                     //Show all employees
                                     Console.Clear();
-                                    fh.ReadEmployeesFromFile("Employees.json");
+                                    foreach (var item in employees)
+                                    {
+                                        Console.WriteLine(item);
+                                    }
                                     try
                                     {
                                         Console.WriteLine("Choose an ID to see CV: ");

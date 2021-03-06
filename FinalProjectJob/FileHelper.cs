@@ -22,7 +22,7 @@ namespace FinalProjectJob
                 }
             }
         }
-        public void ReadEmployeesFromFile(string fileName)
+        public List<Employee> ReadEmployeesFromFile(string fileName)
         {
             List<Employee> employees = null;
             var serializer = new JsonSerializer();
@@ -32,10 +32,7 @@ namespace FinalProjectJob
                 {
                     employees = serializer.Deserialize<List<Employee>>(jr);
                 }
-                foreach (var item in employees)
-                {
-                    Console.WriteLine(item);
-                }
+                return employees;
             }
         }
         public void WriteEmployersToFile(string fileName, List<Employer> employers)
@@ -50,7 +47,7 @@ namespace FinalProjectJob
                 }
             }
         }
-        public void ReadEmployersFromFile(string fileName)
+        public List<Employer> ReadEmployersFromFile(string fileName)
         {
             List<Employer> employers = null;
             var serializer = new JsonSerializer();
@@ -60,10 +57,7 @@ namespace FinalProjectJob
                 {
                     employers = serializer.Deserialize<List<Employer>>(jr);
                 }
-                foreach (var item in employers)
-                {
-                    Console.WriteLine(item);
-                }
+                return employers;
             }
         }
         public void WriteVacanciesToFile(string fileName, Vacancy vacancy)
