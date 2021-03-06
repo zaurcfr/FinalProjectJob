@@ -23,18 +23,6 @@ namespace FinalProjectJob
         public string Username { get; set; }
         public string Password { get; set; }
 
-        //public bool SignIN(string username,string password)
-        //{
-        //    if (Username==username)
-        //    {
-        //        if (Password==password)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}`
-
         public override string ToString()
         {
             return $"ID: {ID}\nName: {Name}\nSurname: {Surname}\nAge: {Age}\nPhone Number: {PhoneNumber}\nEmail: {Email}\nUsername: {Username}\n";
