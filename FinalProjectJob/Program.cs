@@ -442,7 +442,6 @@ namespace FinalProjectJob
                     bool ee = true;
                     bool er = true;
 
-
                     Console.Clear();
                     if (SignIN(employees, employers, username, password) == "employee")
                     {
@@ -1088,7 +1087,6 @@ namespace FinalProjectJob
                         }
                     }
                 }
-
             }
         }
     }
